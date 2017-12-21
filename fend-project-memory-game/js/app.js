@@ -45,7 +45,6 @@ function resetwinarray(){
     while (winArray.pop()) {};
     while (wIndex.pop()) {};
 }
-    
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -89,24 +88,20 @@ function incrementscore(){
         $('.stars li:last').remove();
     } else if(score == 30) {
         $('.stars li:last').remove();
-    } else if(score == 40) {
-        $('.stars li:last').remove();
-    };
+    }
 };
 
 /* set up the event listener for a card. */
 $('ul.deck li').click(function() {
+    curr_item_name= $(this).children()[0].className;
+    curr_item_index= $(this).index()    
     if ($.inArray($(this).index(), wIndex) == -1) {
             /* *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)*/
         if (matchArray.length < 1){
             $(this).toggleClass('open show');
-            curr_item_name= $(this).children()[0].className;
-            curr_item_index= $(this).index()
             matchArray.push([curr_item_name,curr_item_index]);
             incrementscore();
         } else if (matchArray.length == 1) {
-            curr_item_name= $(this).children()[0].className;
-            curr_item_index= $(this).index()
             if (matchArray[0][1] != curr_item_index) {
                 $(this).toggleClass('open show');
                 matchArray.push([curr_item_name,curr_item_index]);
@@ -116,32 +111,35 @@ $('ul.deck li').click(function() {
         if (matchArray.length == 2) {
             /*  - display the card's symbol (put this functionality in another function that you call from this one)*/
             /*  - if the list already has another card, check to see if the two cards match*/
-            setTimeout(function() {
-            if (matchArray[0][0] === matchArray[1][0] && matchArray[0][0] !== undefined && matchArray[1][0] !== undefined) {
-                if ($.inArray(matchArray[0], winArray) == -1) {
-                    winArray.push(matchArray[0][0]);
-                    winArray.push(matchArray[1][0]);
-                    wIndex.push(matchArray[0][1]);
-                    wIndex.push(matchArray[1][1]);
-                    /*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
-                    $('li.card.open.show').toggleClass('match');
-                    $('li.card.match.open.show').toggleClass('open show');
-                    while (matchArray.pop()) {};
-                    if (winArray.length == 16) {
-                        /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
-                        alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score);
-                        }
-                    }
-                } else {
-                    /*    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one) */
-                    $('li.card.open.show').toggleClass('open show');
-                    while (matchArray.pop()) {};
-                }
-            }, 1000);
+            p2gamelogic();
         }; 
     };
 });
 
+function p2gamelogic(){
+    setTimeout(function() {
+        if (matchArray[0][0] === matchArray[1][0] && matchArray[0][0] !== undefined && matchArray[1][0] !== undefined) {
+            if ($.inArray(matchArray[0], winArray) == -1) {
+                winArray.push(matchArray[0][0]);
+                winArray.push(matchArray[1][0]);
+                wIndex.push(matchArray[0][1]);
+                wIndex.push(matchArray[1][1]);
+                /*    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)*/
+                $('li.card.open.show').toggleClass('match');
+                $('li.card.match.open.show').toggleClass('open show');
+                while (matchArray.pop()) {};
+                if (winArray.length == 16) {
+                    /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
+                    alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score);
+                    }
+                }
+            } else {
+                /*    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one) */
+                $('li.card.open.show').toggleClass('open show');
+                while (matchArray.pop()) {};
+            }
+        }, 1000);
+}
 
 /*$('ul.deck').html() ----> returns the current deck state html*/
 
