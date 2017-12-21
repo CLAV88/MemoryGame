@@ -88,7 +88,9 @@ function incrementscore(){
         $('.stars li:last').remove();
     } else if(score == 30) {
         $('.stars li:last').remove();
-    }
+    } else if ($('.stars li').length ==1) {
+        /* Do not remove the last star */
+    };
 };
 
 /* set up the event listener for a card. */
@@ -139,14 +141,4 @@ function p2gamelogic(){
                 while (matchArray.pop()) {};
             }
         }, 1000);
-}
-
-/*$('ul.deck').html() ----> returns the current deck state html*/
-
-
-
-
- 
- 
- 
-
+};

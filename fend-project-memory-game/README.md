@@ -5,16 +5,18 @@
 * [Instructions](#instructions)
 * [Contributing](#contributing)
 
-## Instructions
+###Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+##Memory Game
 
-To get started, open `js/app.js` and start building out the app's functionality
+#Open the index.html file to load the memorygame.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+##Description:
+Deck contains 16 cards that start off face down on the board.
+
+#Object: For each of the cards in the deck there are is an identical twin card . The object of the game is to match all cards available in the deck. The secondary objective is to do it in as little time as possible, and finally in as few moves as possible. The overall objective is to be fun!
 
 ## Contributing
+This is an open source project and can be utilized by anyone who is interested in building a game of their own.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Pull requests will be issued on a case by case basis.
