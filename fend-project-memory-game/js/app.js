@@ -1,3 +1,16 @@
+/* Begin the Timer */
+/* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
+getDuration()
+
+function getDuration() {
+    jQuery(function ($) {
+        var fiveMinutes = 60 * 5,
+            display = $('#time');
+        startTimer(fiveMinutes, display);
+    });
+};
+
+
 /* Create a list that holds all of your cards */
 let deck =  Array.prototype.slice.call($('.deck').children().children());
 let deckCardNames = [];
@@ -10,7 +23,6 @@ let score = $('.moves')[0].innerHTML
 deck.forEach( function(item) {
     deckCardNames.push(item.className);
 });
-
 /* Create an index of values representing the position of the cards within the deck */
 let array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 /*
@@ -21,12 +33,44 @@ let array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
  */
 /* Create an Eventlistener that when restart is clicked the deck array is resorted */
 $('#restart-button').click(function() {
+    location.reload()
     shuffle(array);
     createdeck(deckCardNames);
     replacedeck(newDeck);
     resetstars();
     resetwinarray();
+    getDuration()
 });
+
+function gameOver(){
+    alert('Time is up, better luck next time... We\'ll reset the board for you')
+    shuffle(array);
+    createdeck(deckCardNames);
+    replacedeck(newDeck);
+    resetstars();
+    resetwinarray();
+    getDuration()
+}
+/* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+
+
 
 function resetstars(){
     numStars = $('.stars li');
@@ -132,7 +176,8 @@ function p2gamelogic(){
                 while (matchArray.pop()) {};
                 if (winArray.length == 16) {
                     /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
-                    alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score);
+                    alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score + ", completion time: " + $('#time').text() );
+                    location.reload()
                     }
                 }
             } else {

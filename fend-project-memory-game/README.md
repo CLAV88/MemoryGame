@@ -4,10 +4,10 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
+##Memory Game
 
 ###Instructions
-
-##Memory Game
+ Open the index.html file to use the game, app.js governs the logic, and the standard css is in the app.css file.
 
 #Open the index.html file to load the memorygame.
 
