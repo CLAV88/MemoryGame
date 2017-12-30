@@ -44,6 +44,7 @@ $('#restart-button').click(function() {
 
 function gameOver(){
     alert('Time is up, better luck next time... We\'ll reset the board for you')
+    location.reload()
     shuffle(array);
     createdeck(deckCardNames);
     replacedeck(newDeck);
