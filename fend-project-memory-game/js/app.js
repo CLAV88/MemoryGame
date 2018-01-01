@@ -1,6 +1,5 @@
 /* Begin the Timer */
 /* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
-getDuration()
 
 function getDuration() {
     jQuery(function ($) {
@@ -19,38 +18,42 @@ let newDeck = [];
 let matchArray = [];
 let winArray = [];
 let wIndex = [];
-let score = $('.moves')[0].innerHTML
+let score = $('.moves')[0].innerHTML;
+let moveCount = 0;
 deck.forEach( function(item) {
     deckCardNames.push(item.className);
 });
 /* Create an index of values representing the position of the cards within the deck */
 let array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-/* Create an Eventlistener that when restart is clicked the deck array is resorted */
-$('#restart-button').click(function() {
-    location.reload()
+
+
+/*call the setup function */
+setup();
+
+function setup(){
     shuffle(array);
     createdeck(deckCardNames);
     replacedeck(newDeck);
     resetstars();
     resetwinarray();
-    getDuration()
+    getDuration();
+}
+/** Display the cards on the page 
+*   - shuffle the list of cards using the provided "shuffle" method below
+*   - loop through each card and create its HTML
+*   - add each card's HTML to the page
+*/
+/* Create an Eventlistener that when restart is clicked the deck array is resorted */
+
+$('#restart-button').click(function() {
+    location.reload();
+    setup()
 });
 
 function gameOver(){
     alert('Time is up, better luck next time... We\'ll reset the board for you')
     location.reload()
-    shuffle(array);
-    createdeck(deckCardNames);
-    replacedeck(newDeck);
-    resetstars();
-    resetwinarray();
-    getDuration()
+    setup();
 }
 /* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
 function startTimer(duration, display) {
@@ -127,7 +130,10 @@ function replacedeck(newDeck) {
 
 /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
 function incrementscore(){
-    score++
+    moveCount++
+    if (moveCount % 2 == 0){
+        score++;
+    };    
     $('.moves').text(score)
     if (score == 25) {
         $('.stars li:last').remove();
