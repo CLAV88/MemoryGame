@@ -1,11 +1,15 @@
+
+/*Hide the modal */
+$('#myModal').css('display',"none")
+
 /* Begin the Timer */
 /* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
 
 function getDuration() {
     jQuery(function ($) {
-        var fiveMinutes = 60 * 5,
+        var fiveMinutes = 60 * 1,
             display = $('#time');
-        startTimer(fiveMinutes, display);
+        starttimer(fiveMinutes, display);
     });
 };
 
@@ -20,11 +24,13 @@ let winArray = [];
 let wIndex = [];
 let score = $('.moves')[0].innerHTML;
 let moveCount = 0;
+let secondselapsed = 0;
 deck.forEach( function(item) {
     deckCardNames.push(item.className);
 });
 /* Create an index of values representing the position of the cards within the deck */
 let array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+let today = new Date()
 
 
 /*call the setup function */
@@ -38,6 +44,9 @@ function setup(){
     resetwinarray();
     getDuration();
 }
+/* set the start time */
+
+
 /** Display the cards on the page 
 *   - shuffle the list of cards using the provided "shuffle" method below
 *   - loop through each card and create its HTML
@@ -50,15 +59,11 @@ $('#restart-button').click(function() {
     setup()
 });
 
-function gameOver(){
-    alert('Time is up, better luck next time... We\'ll reset the board for you')
-    location.reload()
-    setup();
-}
 /* Simple timer function courtesy of stackoverflow https://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer */
-function startTimer(duration, display) {
+function starttimer(duration, display) {
     var timer = duration, minutes, seconds;
-    setInterval(function () {
+    timerstein = setInterval(function () {
+        secondselapsed++
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -67,20 +72,21 @@ function startTimer(duration, display) {
 
         display.text(minutes + ":" + seconds);
 
-        if (--timer < 0) {
-            timer = duration;
+        if (--timer == 0) {
+            gameover();
         }
     }, 1000);
+    return timerstein
+};
+
+function gameover() {
+    alert( "This is taking too long, let's try again!")
+    location.reload()
 }
-
-
-
 
 function resetstars(){
     numStars = $('.stars li');
     for (let z = 3; z > numStars.length; z--) {
-        console.log("herenow");
-        console.log("adding star: " + 4-z);
         $('.stars').append('<li></li>');
         $('.stars li:last').append('<i></i>');
     };
@@ -125,7 +131,7 @@ function replacedeck(newDeck) {
         $(this).removeAttr('class')
         $(this).addClass("fa " + newDeck[index])
     });
-    return "complete"
+    return "succesfully reset game!"
 }
 
 /*    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)*/
@@ -169,6 +175,17 @@ $('ul.deck li').click(function() {
     };
 });
 
+function stoptimer() {
+    clearInterval(timerstein);
+};
+
+function showmodal(){
+    stoptimer()
+    $(".modal-footer h3").html( "Time to Solve: " + secondselapsed + " S
+    econds");
+    $('.stars').clone().appendTo('.modal-body')
+    $('#myModal').css('display',"block");
+}
 function p2gamelogic(){
     setTimeout(function() {
         if (matchArray[0][0] === matchArray[1][0] && matchArray[0][0] !== undefined && matchArray[1][0] !== undefined) {
@@ -183,8 +200,9 @@ function p2gamelogic(){
                 while (matchArray.pop()) {};
                 if (winArray.length == 16) {
                     /*    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
-                    alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score + ", completion time: " + $('#time').text() );
-                    location.reload()
+                    showmodal()
+                    //alert("We Have a Winner! Star Level: " + $('ul.stars')[0].childElementCount + " number of moves required: " + score + ", completion time: " + $('#time').text() );
+                    //location.reload()
                     }
                 }
             } else {

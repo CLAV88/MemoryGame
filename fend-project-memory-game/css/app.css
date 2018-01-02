@@ -107,3 +107,68 @@ h1 {
     float: right;
     cursor: pointer;
 }
+/* Modal css */
+
+/* Code is sourced from https://www.w3schools.com/howto/howto_css_modals.asp */
+
+.modal {
+    visibility: none;
+    display: hidden, flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background: #02b3e4;
+    font-family: 'Coda', cursive;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;
+    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background: #02b3e4;
+    font-family: 'Coda', cursive;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    align-items: center;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 1.4s
+}
+
+
+.modal-body .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.modal-body .stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+} 
