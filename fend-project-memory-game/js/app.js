@@ -181,8 +181,7 @@ function stoptimer() {
 
 function showmodal(){
     stoptimer()
-    $(".modal-footer h3").html( "Time to Solve: " + secondselapsed + " S
-    econds");
+    $(".modal-footer h3").html( "Time to Solve: " + secondselapsed + " Seconds");
     $('.stars').clone().appendTo('.modal-body')
     $('#myModal').css('display',"block");
 }
